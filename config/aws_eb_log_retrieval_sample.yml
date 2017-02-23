@@ -1,0 +1,45 @@
+# credentials:
+  # required: aws_region
+  # optional:
+    # aws_access_key_id: str
+    # aws_secret_access_key: str
+
+# environments:
+  # required:
+    # id OR name (both cannot be omitted): str (Elastic Beanstalk environment identifier)
+    # files: list of str
+    # key_pem: str (file path to your RSA private key used to establish ssh connection)
+  # optional:
+    # user: str default is 'ec2-user' (user name used to ssh connect into an EC2 instance)
+    # api_endpoint: str default is null (endpoint used to send log files to a third-party platform)
+    # keep_results_on_disk: boolean default is True (keep the files on your local disk)
+    # use_private_ip: boolean default is False
+
+job_name: aws-eb-log-retrieval
+target_arn: your_target_arn
+backup_directory: path/to/backup
+backup_file_name: backup_file_name
+sleeping_window_in_seconds: 120
+
+credentials:
+  aws_region: us-east-1
+
+environments:
+  - name: your_eb_env_name_or_id
+    files:
+      - name: /path/to/file1
+        rotated: false
+      - name: /path/to/file1
+        rotated: false
+    key_pem: /path/to/key/pem/file
+    keep_results_on_disk: false
+    api_endpoint: null
+  - name: another_of_your_eb_env_name_or_id
+    files:
+      - name: /path/to/file1
+        rotated: false
+      - name: /path/to/file1
+        rotated: false
+    key_pem: /path/to/key/pem/file
+    keep_results_on_disk: false
+    api_endpoint: null
