@@ -28,9 +28,8 @@
 4. Setup a constantly running process. To do that, you can add a job configuration file in /etc/init on your server
     **Upstart example for /etc/init/aws_eb_log_retrieval.conf**
     ```
-    description "Job for constantly tailing new Elastic Beanstalk log files" \
-        "and sending them to Sumologic endpoints"
-    author "rhuberdeau"
+    description "Job for constantly tailing Elastic Beanstalk log files" \
+        "and sending them to third party endpoints"
     
     start on runlevel [2345]
     

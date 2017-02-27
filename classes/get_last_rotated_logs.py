@@ -4,15 +4,14 @@ import paramiko.config
 import gzip
 
 from datetime import datetime
-from util.aws_util import format_aws_file
 from paramiko.ssh_exception import SSHException
 
-__author__ = 'rhuberdeau'
-
+from util.aws_util import format_aws_file
 
 class GetLastRotatedLogs(object):
 
-    def __init__(self, based_on_file, for_ec2_instance, from_ec2_host, with_user, destination_dir, key_pem_file=None, logger=None):
+    def __init__(self, based_on_file, for_ec2_instance, from_ec2_host, with_user,
+                 destination_dir, key_pem_file=None, logger=None):
         self.rotated_path = 'rotated'
         self.ydm = datetime.now().strftime("%Y%d%m")
         self.dir_name = os.path.dirname(based_on_file)
@@ -36,10 +35,11 @@ class GetLastRotatedLogs(object):
         self.ls_tail_grep = " | ".join((self.ls_command, self.tail_command, self.grep_command))
         self.cd_ls_tail_grep = " && ".join((self.cd_command, self.ls_tail_grep))
 
-    """
-    Get the most recent archive containing all the logs from the previous rotation
-    """
     def get_last_rotated_archive(self):
+        """
+        Get the most recent archive containing all the logs from the previous rotation
+        :return:
+        """
         last_rotated_archive = None
         try:
             self.ssh_cli.connect(self.host, username=self.user, key_filename=self.key_pem_file)
@@ -66,10 +66,12 @@ class GetLastRotatedLogs(object):
 
         return last_rotated_archive
 
-    """
-    Download the compressed archive locally
-    """
     def copy_rotated_archive(self, last_rotated_archive):
+        """
+        Download the compressed archive locally
+        :param last_rotated_archive:
+        :return:
+        """
         if last_rotated_archive != "":
 
             rotated_path_file = "{dir_name}/{rotated_path}/{rotated_archive}".format(dir_name=self.dir_name,
@@ -102,10 +104,11 @@ class GetLastRotatedLogs(object):
 
         return local_path_file
 
-    """
-    Get the most recent remote archive, download it and uncompress it
-    """
     def get_rotated_file(self):
+        """
+        Get the most recent remote archive, download it and uncompress it
+        :return:
+        """
         # Get the archive name of the most recent rotated logs
         last_rotated_archive = self.get_last_rotated_archive()
 
