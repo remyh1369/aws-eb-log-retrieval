@@ -17,13 +17,8 @@ class TailEBEnvironment(object):
 
         # Config
         self.eb_env_alias = eb_env_alias
-        self.environment_id = ''
-        self.environment_name = ''
-
-        if 'id' in config:
-            self.environment_id = config['id']
-        if 'name' in config:
-            self.environment_name = config['name']
+        self.environment_id = config['id'] if 'id' in config else ''
+        self.environment_name = config['name'] if 'name' in config else ''
 
         self.key_pem = config['key_pem']
         self.files = config['files']
