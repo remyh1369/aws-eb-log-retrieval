@@ -1,6 +1,12 @@
 # aws-eb-log-retrieval - Guide
 
-1. Configure the EB environments you want to monitor with the required parameters:
+This module is aimed to provide a fully integrated log retrieval service that will periodically find the latest 
+logs from your Elastic Beanstalk environments and send them to a third-party platform for analyzing and monitoring purposes.
+EC2 instances of your Elastic Beanstalk environments will be dynamically found and accessed via SSH so that
+specific log files can be tailed and, eventually, sent over HTTP through an endpoint. You can keep the tailed logs 
+locally if you do not want to send them to a third-party platform.
+
+1. Configure EB environments you want to monitor with the following parameters:
     - Log files to retrieve
     - Does the rotation of some log files need to be taken care of?
     - Key pem file path for each of your EB environment
